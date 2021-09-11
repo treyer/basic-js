@@ -5,24 +5,47 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default {
+
+  arr: [],
+
   getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.arr.length;
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  addLink( value ) {
+    this.arr.push(`( ${value} )`);
+    return this;
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  removeLink( position ) {
+    if (! Number.isInteger(position) || position <= 0 || position > this.arr.length) {
+      this.arr = [];
+      throw new Error("You can't remove incorrect link!");
+    }
+    this.arr.splice(position - 1, 1);
+    return this;
   },
+
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let arr1 = [];
+    for (let i = this.arr.length - 1; i >= 0; i--) {
+      arr1.push(this.arr[i]);
+    }
+    this.arr = arr1;
+    return this;
   },
+
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let str = '';
+    for (let i = 0; i < this.arr.length; i++) {
+      if (i !== this.arr.length - 1){
+        str += `${this.arr[i]}~~`;
+      } else {
+        str += `${this.arr[i]}`;
+      }
+    }
+    this.arr = [];
+    return str;
   }
+
 };
